@@ -18,19 +18,30 @@ const ListEmailu = (items) => {
   </div>
   `;
   };
+
+  
   
    const renderEmailList = (props) => {
-  
+
     const emailList = document.querySelector('#inbox');
-    emailList.innerHTML += 
+    emailList.innerHTML +=
+    
     props.map((item) => ListEmailu(item))
     .join('');
     
   };
-  
+
+ 
+
   fetch('https://apps.kodim.cz/daweb/trening-api/apis/emails')
   .then((response) => response.json())
-  .then((data) => renderEmailList(data.emails))
+  .then((data) => {
+    const filteredData = data.emails.filter((item) => item.unread === true);
+    renderEmailList(filteredData);
+  });
+  
+  
+  //renderEmailList(data.emails))
 
 
   
@@ -63,7 +74,14 @@ const ListEmailu2 = (items) => {
   
   fetch('https://apps.kodim.cz/daweb/trening-api/apis/emails')
   .then((response) => response.json())
-  .then((data) => renderEmailList2(data.emails))
+  .then((data) =>  {
+     const filteredData = data.emails.filter((item) => item.unread === false);
+  renderEmailList2(filteredData);
+});
+  
+  
+  
+  //renderEmailList2(data.emails))
 
 
 
