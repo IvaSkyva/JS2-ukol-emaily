@@ -1,7 +1,6 @@
 console.log('funguju!');
 
 
-
 const ListEmailu = (items) => { 
   return `
   
@@ -22,29 +21,52 @@ const ListEmailu = (items) => {
   
   
    const renderEmailList = (props) => {
-
     const emailList = document.querySelector('#inbox');
     emailList.innerHTML +=
     
     props.map((item) => ListEmailu(item))
-    .join('');
-    
+    .join(''); 
   };
 
- 
+  const ListEmailu2 = (items) => { 
+    return `
+    
+    <div class="email">
+    <div class="email__head">
+      <button class="email__icon email__icon--opened"></button>
+      <div class="email__info">
+        <div class="email__sender">${items.sender.name}</div>
+        <div class="email__subject">${items.subject}</div>
+      </div>
+      <div class="email__time">${items.time}</div>
+    </div>
+    <div class="email__body"></div>
+    </div>
+    `;
+    };
+
+  const renderEmailList2 = (props) => {
+    const emailList = document.querySelector('#inbox2');
+    emailList.innerHTML +=
+    
+    props.map((item) => ListEmailu2(item))
+    .join(''); 
+  };
+
 
   fetch('https://apps.kodim.cz/daweb/trening-api/apis/emails')
   .then((response) => response.json())
   .then((data) => {
     const filteredData = data.emails.filter((item) => item.unread === true);
     renderEmailList(filteredData);
+    const filteredData2 = data.emails.filter((item) => item.unread === false);
+    renderEmailList2(filteredData2);
   });
   
-  
-  //renderEmailList(data.emails))
 
 
-  
+
+/*   
 const ListEmailu2 = (items) => { 
   return `
   
@@ -79,9 +101,9 @@ const ListEmailu2 = (items) => {
   renderEmailList2(filteredData);
 });
   
+   */
   
   
-  //renderEmailList2(data.emails))
 
 
 
